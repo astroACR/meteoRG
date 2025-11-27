@@ -1,9 +1,7 @@
 import requests
 import pandas as pd
 import geopandas as gpd
-from shapely.geometry import Point
 from bs4 import BeautifulSoup
-import ee
 import datetime
 from datetime import datetime, timedelta
 import json
@@ -28,8 +26,16 @@ def stations_to_geojson(df):
     for _, row in df.iterrows():
         try:
             lon, lat = float(row["longitud"]), float(row["latitud"])
-            properties = {col: row[col] for col in props_cols if col in row and pd.notna(row[col])}
+            properties = {}
+            for col in props_cols:
+                if col in row and pd.notna(row[col]):
+                    val = row[col]
+                    # Convert timestamps/datetime to ISO string
+                    if isinstance(val, (pd.Timestamp, datetime)):
+                        val = val.strftime("%Y-%m-%dT%H:%M:%SZ")
+                    properties[col] = val
             properties["id"] = str(row.get("codigo", ""))  # optional unique ID
+
             feature = {
                 "type": "Feature",
                 "geometry": {
