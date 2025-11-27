@@ -1,0 +1,11 @@
+Flask
+pandas
+requests
+beautifulsoup4
+google-cloud-secret-manager
+earthengine-api
+gunicorn
+flask-cors
+geopandas
+shapely
+datetime
