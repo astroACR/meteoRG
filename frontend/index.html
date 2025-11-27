@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <title>MeteoRG Map</title>
+
+  <!-- Leaflet core CSS -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+  <link rel="stylesheet" href="/css/styles.css" />
+
+  <!-- MarkerCluster CSS -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster/dist/MarkerCluster.css" />
+  <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster/dist/MarkerCluster.Default.css" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+</head>
+<body>
+  <div id="map"></div>
+
+  <!-- Load Leaflet first -->
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+
+  <!-- Then load MarkerCluster (depends on Leaflet) -->
+  <script src="https://unpkg.com/leaflet.markercluster/dist/leaflet.markercluster.js"></script>
+
+  <div id="lastUpdate" style="
+  position:absolute; bottom:250px; left:20px;
+  background:white; padding:6px 10px;
+  font-size:12px; border-radius:4px; z-index: 1000; font-size: 13px; font-family: sans-serif;
+  box-shadow:0 0 4px rgba(0,0,0,0.3);">
+  Última actualización: –
+</div>
+
+  <!-- Control panel -->
+  <div id="controls">
+    <!-- Variable buttons -->
+    <button onclick="updateVariable('temperatura')">🌡 Temp</button>
+    <button onclick="updateVariable('humedadRelativa')">💧 Humedad</button>
+    <button onclick="updateVariable('aguaCaida24Horas')">🌧 Precipitación</button>
+    <button onclick="updateVariable('fuerzaDelViento_kmh')">💨 Viento</button>
+
+    <!-- Institution filter -->
+    <label for="institutionFilter">Institución:</label>
+    <select id="institutionFilter"></select>
+
+    <!-- Toggles (shown only when relevant) -->
+    <div id="toggleRainfallContainer" style="display:none;">
+      <label><input type="checkbox" id="toggleRainfall" checked> Intensidad de lluvia</label>
+    </div>
+    <div id="toggleHumidityContainer" style="display:none;">
+      <label><input type="checkbox" id="toggleHumidity" checked> Heatmap de humedad</label>
+    </div>
+    <div id="toggleFirmsContainer">
+      <label><input type="checkbox" id="toggleFirms" checked> 🔥 Mostrar focos FIRMS </label>
+</div>
+
+  </div>
+
+  <!-- Finally, your custom map logic -->
+  <script src="/js/map.js"></script>
+</body>
+</html>
